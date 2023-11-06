@@ -21,3 +21,5 @@ router.post(
 router.put('/:id', putColor);
 
 router.delete('/:id', deleteColor);
+
+export default router;
