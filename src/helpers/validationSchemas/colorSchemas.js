@@ -25,3 +25,31 @@ export const post_colorSchema = Joi.object({
       '*': 'Revisa el campo rgbOrRgba',
     }),
 });
+
+export const put_colorSchema = Joi.object({
+  name: Joi.string().trim().min(3).max(20)
+    .messages({
+      'string.min': 'El campo name debe tener al menos 3 caracteres',
+      'string.max': 'El campo name debe tener, como mucho, 20 caracteres',
+      '*': 'Revisa el campo name',
+    }),
+  hexagecimal: Joi.string().regex(/^#[0-9A-Fa-f]{6}$/)
+    .messages({
+      'string.pattern.base': 'El campo hexagecimal debe ser un valor hexadecimal de 6 caracteres (formato: #123abc)',
+      '*': 'Revisa el campo hexagecimal',
+    }),
+
+  rgbOrRgba: Joi.string().regex(/^rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+(,\s*\d*\.?\d+\s*)?\)$/)
+    .messages({
+      'string.pattern.base': 'El campo rgbOrRgba debe ser un valor valido en formato rgb(*, *, *) o rgba(*, *, *, *)',
+      '*': 'Revisa el campo rgbOrRgba',
+    }),
+}).custom((value, helper) => {
+  const { name, hexagecimal, rgbOrRgba } = value;
+
+  if (!name && !hexagecimal && !rgbOrRgba) {
+    return helper.message('Al menos un campo debe estar presente en el body');
+  }
+
+  return true;
+});

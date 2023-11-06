@@ -1,7 +1,7 @@
 import express from 'express';
 import { deleteColor, getColors, postColors, putColor } from '../controllers/colorControllers.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { post_colorSchema } from '../helpers/validationSchemas/colorSchemas.js';
+import { post_colorSchema, put_colorSchema } from '../helpers/validationSchemas/colorSchemas.js';
 
 const router = express.Router();
 
@@ -18,7 +18,16 @@ router.post(
   postColors,
 );
 
-router.put('/:id', putColor);
+router.put(
+  '/:id',
+  (req, res, next) => validateBody(
+    req,
+    res,
+    next,
+    put_colorSchema,
+  ),
+  putColor,
+);
 
 router.delete('/:id', deleteColor);
 

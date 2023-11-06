@@ -76,7 +76,7 @@ export const putColor = async (req, res) => {
 export const deleteColor = async (req, res) => {
   const { params: { id } } = req;
   try {
-    const action = await ColorModel.updateOne({ _id: id }, { isActive: false });
+    const action = await ColorModel.updateOne({ _id: id, isActive: true }, { isActive: false });
     if (action.matchedCount === 0) {
       res.status(400).json({
         data: null,
