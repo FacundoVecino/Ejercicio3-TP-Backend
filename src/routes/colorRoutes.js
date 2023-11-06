@@ -1,5 +1,5 @@
 import express from 'express';
-import { getColors, postColors } from '../controllers/colorControllers.js';
+import { deleteColor, getColors, postColors, putColor } from '../controllers/colorControllers.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { post_colorSchema } from '../helpers/validationSchemas/colorSchemas.js';
 
@@ -17,3 +17,7 @@ router.post(
   ),
   postColors,
 );
+
+router.put('/:id', putColor);
+
+router.delete('/:id', deleteColor);
