@@ -14,7 +14,9 @@ export const getColors = async (_, res) => {
 };
 
 export const getColor = async (req, res) => {
-  const { params: { id } } = req;
+  const {
+    params: { id },
+  } = req;
   try {
     const dataColor = await ColorModel.findOne({ _id: id, isActive: true });
     if (!dataColor) {
@@ -40,17 +42,17 @@ export const getColor = async (req, res) => {
 export const postColors = async (req, res) => {
   const { body } = req;
 
-  if (body.hexagecimal === null) {
+  if (body.hexadecimal === null) {
     res.status(400).json({
       data: null,
-      message: 'El campo hexagecimal no puede ser null',
+      message: 'El campo hexadecimal no puede ser null',
     });
     return;
   }
 
   const newColor = new ColorModel({
     name: body.name,
-    hexagecimal: body.hexagecimal,
+    hexadecimal: body.hexadecimal,
     rgbOrRgba: body.rgbOrRgba,
     isActive: true,
   });
@@ -64,7 +66,9 @@ export const postColors = async (req, res) => {
   } catch (e) {
     if (e.message.includes('duplicate')) {
       try {
-        const existingColor = await ColorModel.findOne({ hexagecimal: body.hexagecimal });
+        const existingColor = await ColorModel.findOne({
+          hexadecimal: body.hexadecimal,
+        });
 
         if (existingColor) {
           if (!existingColor.isActive) {
@@ -73,7 +77,8 @@ export const postColors = async (req, res) => {
 
             res.status(200).json({
               data: null,
-              message: 'El color había sido eliminado lógicamente, pero ahora se ha vuelto a agregar.',
+              message:
+                'El color había sido eliminado lógicamente, pero ahora se ha vuelto a agregar.',
             });
             return;
           }
@@ -90,6 +95,7 @@ export const postColors = async (req, res) => {
       res.status(400).json({
         data: null,
         message: 'El color ya ha sido creado anteriormente y está activo',
+        error: e.message,
       });
     } else {
       res.status(500).json({
