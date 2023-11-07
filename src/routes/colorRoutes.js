@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { deleteColor, getColors, postColors, putColor } from '../controllers/colorControllers.js';
+import { deleteColor, getColor, getColors, postColors, putColor } from '../controllers/colorControllers.js';
 import { delete_params_colorSchema, get_params_colorSchema, post_colorSchema, put_colorSchema, put_params_colorSchema } from '../helpers/validationSchemas/colorSchemas.js';
 
 import validateParams from '../middlewares/validateParams.js';
@@ -12,7 +12,7 @@ router.get('/', getColors);
 router.get(
   '/:id',
   (req, res, next) => validateParams(req, res, next, get_params_colorSchema),
-  getColors,
+  getColor,
 );
 
 router.post(

@@ -10,24 +10,30 @@ export const post_colorSchema = Joi.object({
       'any.required': 'El campo name es requerido',
       '*': 'Revisa el campo name',
     }),
-  hexagecimal: Joi.string().trim().min(3).max(9)
+  hexadecimal: Joi.string()
+    .trim()
+    .min(3)
+    .max(9)
     .uppercase()
     .regex(/^#[0-9A-Fa-f]{6}$/)
     .required()
     .messages({
-      'string.empty': 'El campo "hex" no puede estar vacio',
-      'string.min': 'El campo "hex" debe tener al menos 3 caracteres',
-      'string.max': 'El campo "hex" debe tener maximo 9 caracteres',
-      'string.pattern.base': 'El campo hexagecimal debe ser un valor hexadecimal de 6 caracteres (formato: #123abc)',
-      'any.required': 'El campo hexagecimal es requerido',
-      '*': 'Revisa el campo hexagecimal',
+      'string.empty': 'El campo hexadecimal no puede estar vacio',
+      'string.min': 'El campo hexadecimal debe tener al menos 3 caracteres',
+      'string.max': 'El campo hexadecimal debe tener maximo 9 caracteres',
+      'string.pattern.base':
+        'El campo hexadecimal debe ser un valor hexadecimal de 6 caracteres (formato: #123abc)',
+      'any.required': 'El campo hexadecimal es requerido',
+      '*': 'Revisa el campo hexadecimal',
     }),
 
-  rgbOrRgba: Joi.string().regex(/^rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+(,\s*\d*\.?\d+\s*)?\)$/)
+  rgbOrRgba: Joi.string()
+    .regex(/^rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+(,\s*\d*\.?\d+\s*)?\)$/)
     .required()
     .messages({
       'string.empty': 'El campo "rgb" no puede estar vacio',
-      'string.pattern.base': 'El campo rgbOrRgba debe ser un valor valido en formato rgb(*, *, *) o rgba(*, *, *, *)',
+      'string.pattern.base':
+        'El campo rgbOrRgba debe ser un valor valido en formato rgb(*, *, *) o rgba(*, *, *, *)',
       'any.required': 'El campo rgbOrRgba es requerido',
       '*': 'Revisa el campo rgbOrRgba',
     }),
@@ -41,27 +47,33 @@ export const put_colorSchema = Joi.object({
       'string.max': 'El campo name debe tener, como mucho, 20 caracteres',
       '*': 'Revisa el campo name',
     }),
-  hexagecimal: Joi.string().trim().min(3).max(9)
+  hexadecimal: Joi.string()
+    .trim()
+    .min(3)
+    .max(9)
     .uppercase()
     .regex(/^#[0-9A-Fa-f]{6}$/)
     .messages({
-      'string.empty': 'El campo "hex" no puede estar vacio',
-      'string.min': 'El campo "hex" debe tener al menos 3 caracteres',
-      'string.max': 'El campo "hex" debe tener maximo 9 caracteres',
-      'string.pattern.base': 'El campo hexagecimal debe ser un valor hexadecimal de 6 caracteres (formato: #123abc)',
-      '*': 'Revisa el campo hexagecimal',
+      'string.empty': 'El campo hexadecimal no puede estar vacio',
+      'string.min': 'El campo hexadecimal debe tener al menos 3 caracteres',
+      'string.max': 'El campo hexadecimal debe tener maximo 9 caracteres',
+      'string.pattern.base':
+        'El campo hexadecimal debe ser un valor hexadecimal de 6 caracteres (formato: #123abc)',
+      '*': 'Revisa el campo hexadecimal',
     }),
 
-  rgbOrRgba: Joi.string().regex(/^rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+(,\s*\d*\.?\d+\s*)?\)$/)
+  rgbOrRgba: Joi.string()
+    .regex(/^rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+(,\s*\d*\.?\d+\s*)?\)$/)
     .messages({
       'string.empty': 'El campo "rgb" no puede estar vacio',
-      'string.pattern.base': 'El campo rgbOrRgba debe ser un valor valido en formato rgb(*, *, *) o rgba(*, *, *, *)',
+      'string.pattern.base':
+        'El campo rgbOrRgba debe ser un valor valido en formato rgb(*, *, *) o rgba(*, *, *, *)',
       '*': 'Revisa el campo rgbOrRgba',
     }),
 }).custom((value, helper) => {
-  const { name, hexagecimal, rgbOrRgba } = value;
+  const { name, hexadecimal, rgbOrRgba } = value;
 
-  if (!name && !hexagecimal && !rgbOrRgba) {
+  if (!name && !hexadecimal && !rgbOrRgba) {
     return helper.message('Al menos un campo debe estar presente en el body');
   }
 

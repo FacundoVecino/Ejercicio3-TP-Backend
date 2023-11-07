@@ -1,4 +1,4 @@
-export const validateBody = (req, res, next, schema) => {
+const validateBody = (req, res, next, schema) => {
   const { body } = req;
 
   const { error } = schema.validate(body);
@@ -13,3 +13,5 @@ export const validateBody = (req, res, next, schema) => {
 
   next();
 };
+
+export default validateBody;

@@ -4,17 +4,14 @@ const Color = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
   },
-  hexagecimal: {
+  hexadecimal: {
     type: String,
     required: true,
-    unique: true,
   },
   rgbOrRgba: {
     type: String,
     required: true,
-    unique: true,
   },
   isActive: Boolean,
 });
